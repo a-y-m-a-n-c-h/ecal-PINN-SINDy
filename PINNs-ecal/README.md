@@ -26,10 +26,10 @@ This project implements a physics-informed Seq2Seq model for forecasting ECAL cr
 ## 🛠️ Key Modifications
 
 ### 1. `seq2seq_train.py`
-- Introduced **physics-informed loss** \(\mathcal{L}_{\text{physics}}\) using:
-  $$
-  \mathcal{L}_{\text{physics}} = \frac{1}{T} \sum_{t=1}^{T} \left( \frac{d\hat{C}}{dt} + k_{\text{dmg}} L(t)\hat{C}(t) - k_{\text{rec}}(C_{\infty} - \hat{C}(t)) \right)^2
-  $$
+- Introduced **physics-informed loss** `L_physics` using:
+
+  L_physics = (1/T) ∑ₜ (dĈ/dt + k_dmg · L(t) · Ĉ(t) - k_rec · (C_inf - Ĉ(t)))²
+
 - Added **learnable physical parameters**: `k_dmg`, `k_rec`, and `C_inf`.
 - Applied physics loss only after unnormalizing the predicted calibration values.
 
@@ -37,7 +37,7 @@ This project implements a physics-informed Seq2Seq model for forecasting ECAL cr
 - Augmented input features to include:
   - `Δt` (delta time between measurements)
   - `ΔL(t)` (delta luminosity)
-  - `ΔC(t)` (delta calibration)
+  - `C(t)` (calibration)
 
 ## ⚠️ Normalization Pitfall & Solution
 
